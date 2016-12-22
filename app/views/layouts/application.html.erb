@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title><%= yield(:title) || "Untitled" %></title>
+    <%= stylesheet_link_tag 'application' %>
+    <%= javascript_include_tag :defaults %>
+    <%= csrf_meta_tag %>
+   
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+ 
+  <div id="user_nav">
+  <% if user_signed_in? %>
+    Signed in as <%= current_user.email %>. Not you?
+    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+     <%= link_to "posts", posts_path %>
+     <%= link_to "users", users_path %>
+  <% else %>
+    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+    <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
+    <%= link_to "Sign in withTwitter", user_twitter_omniauth_authorize_path %>
+    <%= link_to "Sign in withTwitter", user_linkedin_omniauth_authorize_path %>
+  <% end %>
+</div>
+    <%= yield %>
+  </body>
+</html>
+
